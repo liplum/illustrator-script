@@ -3,7 +3,7 @@
 * Thanks to: Niels Bosma (niels.bosma@motorola.com)
 */
 
-var all = {
+var allSize = {
   "1024x1024": 1024,
   "512x512": 512,
   "256x256": 256,
@@ -25,53 +25,48 @@ var all = {
   "16x16": 16,
 }
 
-var folder = Folder.selectDialog()
-var document = app.activeDocument
+main()
 
-if (document && folder) {
+function main() {
+  var folder = Folder.selectDialog()
+  var document = app.activeDocument
+  if (!folder) return
+  if (!document) {
+    alert("Please open a docuement.", "Error")
+    return
+  }
   if (!folder.exists) {
     folder.create()
   }
-  for (var fileName in all) {
-    saveToRes(all[fileName], fileName)
+  try {
+    for (var size in allSize) {
+      saveToRes(document, folder, allSize[size], size)
+    }
+  } catch (err) {
+    alert(err, "Error")
+    return
   }
+
+  alert("All images are exported.", "Success")
 }
 
-function saveToRes(scaleTo, fileName) {
+function saveToRes(document, folder, scaleTo, fileName) {
   scaleTo = scaleTo / document.width * 100.0
-  var i
-  var layer
-  var file
-  var options
+  for (var i = document.layers.length - 1; i >= 0; i--) {
+    var layer = document.layers[i]
+    if (!layer.visible) continue;
+    if (layer.name.indexOf("!") !== -1) continue;
 
-  for (i = document.layers.length - 1; i >= 0; i--) {
-    layer = document.layers[i]
-    if (!layer.locked && layer.name.indexOf("!") === -1) {
-      hideAllLayers()
-      layer.visible = true
+    var file = new File(folder.fsName + "/" + fileName + ".png")
 
-      file = new File(folder.fsName + "/" + fileName + ".png")
+    var options = new ExportOptionsPNG24()
+    options.antiAliasing = true
+    options.transparency = true
+    options.artBoardClipping = true
+    options.verticalScale = scaleTo
+    options.horizontalScale = scaleTo
 
-      options = new ExportOptionsPNG24()
-      options.antiAliasing = true
-      options.transparency = true
-      options.artBoardClipping = true
-      options.verticalScale = scaleTo
-      options.horizontalScale = scaleTo
-
-      document.exportFile(file, ExportType.PNG24, options)
-    }
+    document.exportFile(file, ExportType.PNG24, options)
   }
 }
 
-function hideAllLayers() {
-  var i
-  var layer
-
-  for (i = document.layers.length - 1; i >= 0; i--) {
-    layer = document.layers[i]
-    if (!layer.locked && layer.name.indexOf("!") === -1) {
-      layer.visible = false
-    }
-  }
-}
