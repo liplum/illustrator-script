@@ -7,21 +7,22 @@ var allSize = {
   "1024x1024": 1024,
   "512x512": 512,
   "256x256": 256,
-  "180x180": 180,
-  "167x167": 167,
-  "152x152": 152,
+  "216x216": 216, // for Huawei
+  "180x180": 180, // for Apple
+  "167x167": 167, // for Apple
+  "152x152": 152, // for Apple
   "128x128": 128,
-  "120x120": 120,
-  "87x87": 87,
-  "80x80": 80,
-  "76x76": 76,
+  "120x120": 120, // for Apple
+  "87x87": 87, // for Apple
+  "80x80": 80, // for Apple
+  "76x76": 76, // for Apple
   "64x64": 64,
-  "60x60": 60,
-  "58x58": 58,
-  "40x40": 40,
+  "60x60": 60, // for Apple
+  "58x58": 58, // for Apple
+  "40x40": 40, // for Apple
   "32x32": 32,
-  "29x29": 29,
-  "20x20": 20,
+  "29x29": 29, // for Apple
+  "20x20": 20, // for Apple
   "16x16": 16,
 }
 
@@ -54,8 +55,8 @@ function saveToRes(document, folder, scaleTo, fileName) {
   scaleTo = scaleTo / document.width * 100.0
   for (var i = document.layers.length - 1; i >= 0; i--) {
     var layer = document.layers[i]
-    if (!layer.visible) continue;
-    if (layer.name.indexOf("!") !== -1) continue;
+    if (!layer.visible) continue
+    if (layer.name.indexOf("!") !== -1) continue
 
     var file = new File(folder.fsName + "/" + fileName + ".png")
 
