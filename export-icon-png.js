@@ -13,6 +13,7 @@ var allSize = {
   "152x152": 152, // for Apple
   "128x128": 128,
   "120x120": 120, // for Apple
+  "108x108": 108, // for Wechat
   "87x87": 87, // for Apple
   "80x80": 80, // for Apple
   "76x76": 76, // for Apple
@@ -22,6 +23,7 @@ var allSize = {
   "40x40": 40, // for Apple
   "32x32": 32,
   "29x29": 29, // for Apple
+  "28x28": 28, // for Wechat
   "20x20": 20, // for Apple
   "16x16": 16,
 }
