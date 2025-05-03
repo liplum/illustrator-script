@@ -35,7 +35,7 @@ function main() {
   var document = app.activeDocument
   if (!folder) return
   if (!document) {
-    alert("Please open a docuement.", "Error")
+    alert("Please open a document.", "Error")
     return
   }
   if (!folder.exists) {
@@ -57,8 +57,12 @@ function saveToRes(document, folder, scaleTo, fileName) {
   scaleTo = scaleTo / document.width * 100.0
   for (var i = document.layers.length - 1; i >= 0; i--) {
     var layer = document.layers[i]
-    if (!layer.visible) continue
-    if (layer.name.indexOf("!") !== -1) continue
+    if (!layer.visible) {
+      continue
+    }
+    if (layer.name.indexOf("!") !== -1) {
+      continue
+    }
 
     var file = new File(folder.fsName + "/" + fileName + ".png")
 
