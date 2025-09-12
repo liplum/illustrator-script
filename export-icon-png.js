@@ -8,6 +8,7 @@ var allSize = {
   "512x512": 512,
   "256x256": 256,
   "216x216": 216, // for Huawei
+  "192x192": 192, // for Apple Touch icon
   "180x180": 180, // for Apple
   "167x167": 167, // for Apple
   "152x152": 152, // for Apple
